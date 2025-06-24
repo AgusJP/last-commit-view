@@ -24,6 +24,7 @@ public class GitHubWebhookController {
         if (commits != null && !commits.isEmpty()) {
             var commit = (Map<String, Object>) commits.get(0);
             var mensaje = commit.get("message").toString();
+            System.out.println(mensaje);
             messagingTemplate.convertAndSend("/topic/commit", mensaje);
         }
         return ResponseEntity.ok().build();

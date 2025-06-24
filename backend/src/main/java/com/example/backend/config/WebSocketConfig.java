@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws")
                 .setAllowedOrigins(
                         "http://localhost:4200",
-                        "https://3250-45-15-1-205.ngrok-free.app"
+                        "https://406a-45-15-1-205.ngrok-free.app"
                 )
                 .withSockJS();
     }

@@ -11,7 +11,7 @@ export class WebSocketService {
 
   connect(callback: (message: string) => void) {
     this.client = new Client({
-      webSocketFactory: () => new SockJS('https://3250-45-15-1-205.ngrok-free.app/ws'),
+      webSocketFactory: () => new SockJS('http://localhost:9099/ws'),
       reconnectDelay: 5000,
     });
 
@@ -21,6 +21,15 @@ export class WebSocketService {
       this.client.subscribe('/topic/commit', (message) => {
         callback(message.body);
       });
+    };
+
+    this.client.onStompError = (frame) => {
+      console.error('Broker reported error:', frame.headers['message']);
+      console.error('Additional details:', frame.body);
+    };
+    
+    this.client.onWebSocketError = (event) => {
+      console.error('WebSocket error:', event);
     };
 
     this.client.activate();
